@@ -17,37 +17,57 @@ class RegisterSerializer(serializers.ModelSerializer):
         fields = ['username', 'email', 'password', 'role']
     #create method to create a new user instance
     def create(self, validated_data):
-        #create_user() handles password hashing and user creation
+        # create_user() handles password hashing and user creation
         user = User.objects.create_user(
             username=validated_data['username'],
             email=validated_data['email'],
             password=validated_data['password'],
             role=validated_data.get('role', 'student')
         )
-        user.save()
         return user
         
 #serializer for user login
 class LoginSerializer(serializers.Serializer):
-    #provided by the client
-    username = serializers.CharField()
-    #provided by the client
+    username = serializers.CharField(required=False)
+    email = serializers.EmailField(required=False)
     password = serializers.CharField(write_only=True)
-    #returned by the server upon successful login
-    access = serializers.CharField(read_only=True)    
-    #returned by the server upon successful login
+    access = serializers.CharField(read_only=True)
     refresh = serializers.CharField(read_only=True)
-    
-    #validate method to authenticate user and generate tokens
+
     def validate(self, data):
+        username = data.get('username')
+        email = data.get('email')
+        password = data.get('password')
+
+        if not password:
+            raise serializers.ValidationError({'password': 'This field is required.'})
+        if not username and not email:
+            raise serializers.ValidationError('Provide either username or email.')
+
+        # Try to authenticate with username first, then email
         from django.contrib.auth import authenticate
-        user = authenticate(username=data['username'], password=data['password'])
-        if user is None:
-            raise serializers.ValidationError("Invalid username or password")
+        user = None
+        if username:
+            user = authenticate(username=username, password=password)
+        if not user and email:
+            # Try to get username from email
+            try:
+                user_obj = User.objects.get(email=email)
+                user = authenticate(username=user_obj.username, password=password)
+            except User.DoesNotExist:
+                pass
+        if not user:
+            raise serializers.ValidationError('Invalid credentials')
+        if not getattr(user, 'is_active', True):
+            raise serializers.ValidationError('User account is disabled')
+
         refresh = RefreshToken.for_user(user)
         return {
+            'user': user,
+            'username': user.username,
             'access': str(refresh.access_token),
             'refresh': str(refresh),
+            'role': user.role
         }
 #shows user details
 class UserSerializer(serializers.ModelSerializer):
