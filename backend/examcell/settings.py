@@ -11,6 +11,39 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+
+# Try to import load_dotenv from python-dotenv; if unavailable, provide a minimal fallback.
+try:
+    from dotenv import load_dotenv
+except Exception:
+    def load_dotenv(dotenv_path=None, override=False):
+        """
+        Minimal fallback for load_dotenv: reads KEY=VALUE lines from a .env file and sets them in os.environ.
+        Lines starting with # are ignored. This implementation is intentionally simple and does not support
+        all features of python-dotenv (such as export, multiline values, or variable expansion).
+        """
+        path = dotenv_path or os.path.join(os.path.dirname(__file__), '..', '.env')
+        try:
+            with open(path, 'r', encoding='utf-8') as f:
+                for raw_line in f:
+                    line = raw_line.strip()
+                    if not line or line.startswith('#'):
+                        continue
+                    if '=' not in line:
+                        continue
+                    key, val = line.split('=', 1)
+                    key = key.strip()
+                    val = val.strip().strip('"').strip("'")
+                    if override or key not in os.environ:
+                        os.environ[key] = val
+        except FileNotFoundError:
+            # No .env file found; do nothing.
+            pass
+
+# Load environment variables from .env file
+load_dotenv()
+
 AUTH_USER_MODEL = 'accounts.user'
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -21,10 +54,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-e+=a2gq06)8lkf#cu&zbx&p7d)r6=j=n0rn(&p#cs#0!=c7g$#'
+SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-change-this-in-production')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', 'True').lower() == 'true'
 
 ALLOWED_HOSTS = []
 
@@ -36,7 +69,15 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
     ],
 }
+#email backend settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')  
 INSTALLED_APPS = [
+    'emailservice',
     'accounts.apps.AccountsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
