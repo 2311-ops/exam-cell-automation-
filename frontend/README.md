@@ -14,5 +14,3 @@ Open http://localhost:3000 in your browser.
 Files:
 - `index.html` - the single-page frontend entry.
 - `src/` - source files for pages (Login, Dashboard, Halltickets, Register).
-
-These are lightweight placeholder pages. If you want the previous full React files restored, provide the files or tell me where they are and I will copy them in.
