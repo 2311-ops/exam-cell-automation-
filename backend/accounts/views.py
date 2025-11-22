@@ -19,11 +19,16 @@ class RegisterView(APIView):
 
         user = serializer.save()
 
-        # Send welcome email
-        send_welcome_email(user.email, user.username)
+        # Send welcome email (best-effort)
+        try:
+            send_welcome_email(user.email, user.username)
+            email_msg = "User registered and welcome email sent."
+        except Exception:
+            # ensure registration succeeds even if email sending fails
+            email_msg = "User registered but welcome email failed to send."
 
         return Response(
-            {"message": "User registered and welcome email sent."},
+            {"message": email_msg},
             status=status.HTTP_201_CREATED,
         )
 
