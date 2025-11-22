@@ -28,34 +28,24 @@ class RegisterSerializer(serializers.ModelSerializer):
         
 #serializer for user login
 class LoginSerializer(serializers.Serializer):
-    username = serializers.CharField(required=False)
-    email = serializers.EmailField(required=False)
+    username = serializers.CharField()
     password = serializers.CharField(write_only=True)
     access = serializers.CharField(read_only=True)
     refresh = serializers.CharField(read_only=True)
 
     def validate(self, data):
         username = data.get('username')
-        email = data.get('email')
         password = data.get('password')
 
+        if not username:
+            raise serializers.ValidationError({'username': 'This field is required.'})
         if not password:
             raise serializers.ValidationError({'password': 'This field is required.'})
-        if not username and not email:
-            raise serializers.ValidationError('Provide either username or email.')
 
-        # Try to authenticate with username first, then email
+        # Authenticate with username and password only
         from django.contrib.auth import authenticate
-        user = None
-        if username:
-            user = authenticate(username=username, password=password)
-        if not user and email:
-            # Try to get username from email
-            try:
-                user_obj = User.objects.get(email=email)
-                user = authenticate(username=user_obj.username, password=password)
-            except User.DoesNotExist:
-                pass
+        user = authenticate(username=username, password=password)
+        
         if not user:
             raise serializers.ValidationError('Invalid credentials')
         if not getattr(user, 'is_active', True):
