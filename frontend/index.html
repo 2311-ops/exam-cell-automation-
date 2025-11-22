@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Exam Cell - Frontend (placeholder)</title>
+    <style>
+      body { font-family: Arial, Helvetica, sans-serif; margin: 24px; }
+      .hidden { display: none; }
+      .card { border: 1px solid #ddd; padding: 16px; margin: 8px 0; border-radius: 6px; }
+    </style>
+  </head>
+  <body>
+    <h1>Exam Cell — Frontend (placeholder)</h1>
+    <div id="app">
+      <div id="login" class="card">
+        <h2>Login</h2>
+        <label>Username: <input id="username" /></label><br/>
+        <label>Password: <input id="password" type="password" /></label><br/>
+        <button id="btnLogin">Login</button>
+        <div id="loginMsg"></div>
+      </div>
+
+      <div id="dashboard" class="card hidden">
+        <h2>Dashboard</h2>
+        <div id="dashboardContent">You are logged in.</div>
+        <button id="btnLogout">Logout</button>
+      </div>
+    </div>
+
+    <script type="module" src="src/index.js"></script>
+  </body>
+</html>
