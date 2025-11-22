@@ -90,6 +90,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # adding restframework
     'rest_framework',
+    # Student exam management apps
+    'halltickets.apps.HallTicketsConfig',
+    'marksheets.apps.MarksheetsConfig',
+    'students.apps.StudentsConfig',
 ]
 
 MIDDLEWARE = [
