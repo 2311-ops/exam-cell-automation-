@@ -21,5 +21,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/accounts/', include('accounts.urls')),
     path('api/emailservice/', include('emailservice.urls')),
+<<<<<<< HEAD
     path('api/', include('halltickets.urls')),
+=======
+    path('api/students/', include('students.urls')),
+    path('api/halltickets/', include('halltickets.urls')),
+    path('api/marksheets/', include('marksheets.urls')),
+>>>>>>> 53a8404ef9bfe451dbb0d667faf5fbc46ccafefa
 ]
