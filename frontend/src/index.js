@@ -1,22 +1,13 @@
-import { initLogin } from './pages/Login.js';
-import { initDashboard } from './pages/Dashboard.js';
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import App from './App';
+import './App.css';
 
-const btnLogin = document.getElementById('btnLogin');
-const btnLogout = document.getElementById('btnLogout');
+const container = document.getElementById('root');
+const root = createRoot(container);
 
-btnLogin.addEventListener('click', async () => {
-  const username = document.getElementById('username').value;
-  const password = document.getElementById('password').value;
-  const ok = await initLogin(username, password);
-  if (ok) {
-    document.getElementById('login').classList.add('hidden');
-    document.getElementById('dashboard').classList.remove('hidden');
-    initDashboard();
-  }
-});
-
-btnLogout.addEventListener('click', () => {
-  localStorage.removeItem('exam_token');
-  document.getElementById('dashboard').classList.add('hidden');
-  document.getElementById('login').classList.remove('hidden');
-});
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);

@@ -44,6 +44,9 @@ class LoginView(APIView):
                 'message': 'Login successful',
                 'access': serializer.validated_data['access'],
                 'refresh': serializer.validated_data['refresh'],
+                'username': serializer.validated_data['username'],
+                'role': serializer.validated_data['role'],
+                'user_id': user.id,
             }, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
