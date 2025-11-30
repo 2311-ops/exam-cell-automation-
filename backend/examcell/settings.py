@@ -28,6 +28,9 @@ INSTALLED_APPS = [
     'marksheets.apps.MarksheetsConfig',
     'students.apps.StudentsConfig',
 
+    'students',
+    'halltickets',
+    'marksheets',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
