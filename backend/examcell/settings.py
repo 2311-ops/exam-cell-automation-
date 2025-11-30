@@ -14,7 +14,6 @@ DEBUG = os.getenv('DEBUG', 'True').lower() == 'true'
 
 ALLOWED_HOSTS = ["*"]  # Allow all hosts for development
 
-
 # -------------------------
 # Applications
 # -------------------------
@@ -39,7 +38,6 @@ INSTALLED_APPS = [
 
 AUTH_USER_MODEL = 'accounts.User'
 
-
 # -------------------------
 # Middleware
 # -------------------------
@@ -55,7 +53,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-
 # -------------------------
 # CORS - React allowed
 # -------------------------
@@ -65,7 +62,6 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 CORS_ALLOW_CREDENTIALS = True
-
 
 # -------------------------
 # REST Framework
@@ -79,7 +75,6 @@ REST_FRAMEWORK = {
     ]
 }
 
-
 # -------------------------
 # JWT Settings
 # -------------------------
@@ -92,7 +87,6 @@ SIMPLE_JWT = {
     'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
 }
 
-
 # -------------------------
 # Email
 # -------------------------
@@ -103,7 +97,6 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
 
-
 # -------------------------
 # Database
 # -------------------------
@@ -113,7 +106,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # -------------------------
 # Templates
@@ -135,7 +127,6 @@ TEMPLATES = [
 
 ROOT_URLCONF = 'examcell.urls'
 WSGI_APPLICATION = 'examcell.wsgi.application'
-
 
 # -------------------------
 # Static Files
