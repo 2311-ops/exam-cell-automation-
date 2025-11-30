@@ -12,11 +12,20 @@ const apiService = axios.create({
 // Add token to requests if it exists
 apiService.interceptors.request.use((config) => {
   const token = localStorage.getItem('access_token');
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+
+  // Don't attach token for login/register
+  if (
+    !config.url.includes('/accounts/login/') &&
+    !config.url.includes('/accounts/register/')
+  ) {
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
   }
+
   return config;
 });
+
 
 export const authAPI = {
   register: (username, email, password, role = 'student') =>
