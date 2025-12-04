@@ -37,26 +37,3 @@ function App() {
 }
 
 export default App
-
-.auth-links {
-  display: flex;
-  gap: 16px;
-  margin: 24px 0;
-}
-
-.auth-link {
-  padding: 10px 20px;
-  font-size: 16px;
-  text-decoration: none;
-  color: white;
-  background-color: #333;
-  border-radius: 6px;
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-.auth-link:hover {
-  background-color: #26ff00;
-  color: #1e3a5f;
-  transform: scale(1.15);
-}
