@@ -18,25 +18,20 @@ ALLOWED_HOSTS = ["*"]  # Allow all hosts for development
 # Applications
 # -------------------------
 INSTALLED_APPS = [
-    'corsheaders',
-    'rest_framework',
-    'rest_framework_simplejwt',
-
-    'emailservice',
-    'accounts.apps.AccountsConfig',
-    'halltickets.apps.HallTicketsConfig',
-    'marksheets.apps.MarksheetsConfig',
-    'students.apps.StudentsConfig',
-
-    'students',
-    'halltickets',
-    'marksheets',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'corsheaders',
+
+    'accounts',
+    'emailservice',
+    'halltickets',
+    'marksheets',
+    'students',  # Keep ONLY ONE instance
 ]
 
 AUTH_USER_MODEL = 'accounts.User'

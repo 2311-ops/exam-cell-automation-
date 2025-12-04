@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-<<<<<<< HEAD
+from halltickets.models import Exam
 
 User = get_user_model()
 
@@ -22,10 +22,7 @@ class Student(models.Model):
             self.gpa = round(avg_score / 100 * 4, 2)
         self.save()
         return self.gpa
-=======
-from halltickets.models import Exam
 
-User = get_user_model()
 
 class StudentExamRegistration(models.Model):
     """Model to track which exams a student is registered for"""
@@ -36,8 +33,7 @@ class StudentExamRegistration(models.Model):
 
     class Meta:
         unique_together = ('student', 'exam')
-        ordering = ['-registered_at']
+        ordering = ['-registered_at']        ordering = ['-registered_at']
 
     def __str__(self):
-        return f"{self.student.username} - {self.exam.name}"
->>>>>>> bd48eb6f41dc796d9e2a255bfcb996ed6fc8157e
+        return f"{self.student.username} - {self.exam.name}"me} - {self.exam.name}"
