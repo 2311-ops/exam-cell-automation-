@@ -1,0 +1,27 @@
+ // Code your testbench here
+// or browse Examples
+left
+module testbench_divider();
+  reg [63:0] A , B;
+  wire [63;0] Q,R;
+  divider uut (A,B,Q,R);
+  initial begin 
+    A= 64 d25;
+    B = 64'd4;
+    #10;
+    $display("A= %d , B= %d , Q =%d, R = %d , A,B,Q,R);
+   end
+endmodule
+
+right 
+// Code your design here
+// Code your design here
+module divider (
+    input  [63:0] A, B,
+    output [63:0] Q, R
+);
+    assign Q = A / B;
+    assign R = A % B;
+endmodule
+        
+      
