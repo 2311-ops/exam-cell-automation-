@@ -22,3 +22,9 @@ db.sqlite3
 
 # Logs
 *.log
+# Python
+__pycache__/
+*.pyc
+
+# Database
+db.sqlite3
