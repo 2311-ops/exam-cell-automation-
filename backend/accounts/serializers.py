@@ -1,23 +1,38 @@
-#serializer handling user registration, login, and user details 
 from rest_framework import serializers
-#retrieve the custom user model
-from django.contrib.auth import get_user_model
-#create JWT tokens for user
+from django.contrib.auth import get_user_model, authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
+
 User = get_user_model()
 
+# Serializer for user registration
 class RegisterSerializer(serializers.ModelSerializer):
-    #adding serializer for user registration and hide it from responses
-    password = serializers.CharField(write_only=True)
-    #meta tells serializer which model to use and which fields to include
+    password = serializers.CharField(write_only=True, required=True)
+    role = serializers.ChoiceField(choices=[('student', 'Student'), ('staff', 'Staff')], default='student')
+
     class Meta:
-        #user model retured by get_user_model()
         model = User
-        #fields to include in the serializer
         fields = ['username', 'email', 'password', 'role']
-    #create method to create a new user instance
+
+    def validate_username(self, value):
+        # Accept the provided username (we derive it from the email local-part in the view).
+        # Validate basic constraints: non-empty and uniqueness.
+        if not value:
+            raise serializers.ValidationError("Username cannot be empty.")
+
+        if User.objects.filter(username=value).exists():
+            raise serializers.ValidationError("A user with that username already exists.")
+
+        return value
+
+    def validate_email(self, value):
+        # Email validation: just ensure it's not empty and not already used
+        if not value:
+            raise serializers.ValidationError("Email cannot be empty.")
+        if User.objects.filter(email=value).exists():
+            raise serializers.ValidationError("A user with that email already exists.")
+        return value
+
     def create(self, validated_data):
-        # create_user() handles password hashing and user creation
         user = User.objects.create_user(
             username=validated_data['username'],
             email=validated_data['email'],
@@ -25,41 +40,42 @@ class RegisterSerializer(serializers.ModelSerializer):
             role=validated_data.get('role', 'student')
         )
         return user
-        
-#serializer for user login
+
+# Serializer for login remains the same
 class LoginSerializer(serializers.Serializer):
-    username = serializers.CharField()
-    password = serializers.CharField(write_only=True)
-    access = serializers.CharField(read_only=True)
-    refresh = serializers.CharField(read_only=True)
+    username = serializers.CharField(required=True)
+    password = serializers.CharField(write_only=True, required=True)
 
     def validate(self, data):
         username = data.get('username')
         password = data.get('password')
 
-        if not username:
-            raise serializers.ValidationError({'username': 'This field is required.'})
-        if not password:
-            raise serializers.ValidationError({'password': 'This field is required.'})
+        if not username or not password:
+            raise serializers.ValidationError("Both username and password are required.")
 
-        # Authenticate with username and password only
-        from django.contrib.auth import authenticate
+        # Allow users to enter either their username (roll / staff id) or their full email.
+        # If an email is provided, try authenticating with the local-part (username) as well.
         user = authenticate(username=username, password=password)
-        
-        if not user:
-            raise serializers.ValidationError('Invalid credentials')
-        if not getattr(user, 'is_active', True):
-            raise serializers.ValidationError('User account is disabled')
+        if not user and '@' in (username or ''):
+            # derive local part from email and try again
+            local_part = username.split('@', 1)[0]
+            user = authenticate(username=local_part, password=password)
 
+        if not user:
+            raise serializers.ValidationError("Invalid credentials")
+        if not user.is_active:
+            raise serializers.ValidationError("User account is disabled")
+
+        # Generate JWT tokens
         refresh = RefreshToken.for_user(user)
+
         return {
-            'user': user,
-            'username': user.username,
-            'access': str(refresh.access_token),
-            'refresh': str(refresh),
-            'role': user.role
+            "user": user,
+            "access": str(refresh.access_token),
+            "refresh": str(refresh),
         }
-#shows user details
+
+# User details serializer remains the same
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User

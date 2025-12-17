@@ -12,12 +12,30 @@ const apiService = axios.create({
 // Add token to requests if it exists
 apiService.interceptors.request.use((config) => {
   const token = localStorage.getItem('access_token');
+<<<<<<< HEAD
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
 });
 
+=======
+
+  // Don't attach token for login/register
+  if (
+    !config.url.includes('/accounts/login/') &&
+    !config.url.includes('/accounts/register/')
+  ) {
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+  }
+
+  return config;
+});
+
+
+>>>>>>> b93a8b449bb198c041389dc301d09512a056b035
 export const authAPI = {
   register: (username, email, password, role = 'student') =>
     apiService.post('/accounts/register/', { username, email, password, role }),
@@ -52,4 +70,8 @@ export const studentsAPI = {
     apiService.get(`/students/marksheet/${exam_id}/`),
 };
 
+<<<<<<< HEAD
 export default apiService;
+=======
+export default apiService;
+>>>>>>> b93a8b449bb198c041389dc301d09512a056b035

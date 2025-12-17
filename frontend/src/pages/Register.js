@@ -109,7 +109,7 @@ function Register() {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              placeholder="Enter your email"
+              placeholder="test@example.com"
               disabled={loading}
             />
           </div>

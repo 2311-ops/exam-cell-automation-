@@ -1,8 +1,8 @@
 # Node modules (frontend)
-/frontend/node_modules/
+frontend/node_modules/
 
 # Build output
-/frontend/build/
+frontend/build/
 
 # Python
 *.pyc
@@ -12,19 +12,15 @@ venv/
 
 # Django local DB
 db.sqlite3
+backend/db.sqlite3
 
 # Environment files
 .env
+backend/.env
+frontend/.env
 
 # OS files
 .DS_Store
 
-
 # Logs
 *.log
-# Python
-__pycache__/
-*.pyc
-
-# Database
-db.sqlite3
