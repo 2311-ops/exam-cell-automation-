@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 from django.utils import timezone
 
-class user(AbstractUser):
+class User(AbstractUser):
     ROLE_CHOICES = (
         ('student', 'Student'),
         ('admin', 'Admin'),
