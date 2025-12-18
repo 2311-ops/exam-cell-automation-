@@ -7,6 +7,7 @@ from .views import (
     AdminRegistrationViewSet,
     AdminHallTicketViewSet,
     AdminMarksheetViewSet,
+    EmailStudentsView,
 )
 
 router = DefaultRouter()
@@ -18,4 +19,5 @@ router.register(r"marksheets", AdminMarksheetViewSet, basename="admin-marksheets
 
 urlpatterns = [
     path("", include(router.urls)),
+    path("email/students/", EmailStudentsView.as_view(), name="admin-email-students"),
 ]
