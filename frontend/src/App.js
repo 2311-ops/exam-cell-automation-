@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import LandingPage from './pages/LandingPage';
-import Register from './pages/Register';
-import Login from './pages/Login';
-import Dashboard from './pages/Dashboard';
+import LandingPage from './pages/LandingPage.js';
+import Register from './pages/Register.js';
+import Login from './pages/Login.js';
+import Dashboard from './pages/Dashboard.js';
 import './App.css';
 
 // Protected Route Component
