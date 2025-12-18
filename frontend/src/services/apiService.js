@@ -61,4 +61,36 @@ export const studentsAPI = {
     apiService.get(`/students/marksheet/${exam_id}/`),
 };
 
+// Admin-specific APIs that mirror Django admin capabilities
+export const adminAPI = {
+  // Users
+  getUsers: () => apiService.get('/admin/users/'),
+  updateUser: (userId, data) => apiService.patch(`/admin/users/${userId}/`, data),
+
+  // Exams
+  getExams: () => apiService.get('/admin/exams/'),
+  createExam: (data) => apiService.post('/admin/exams/', data),
+  updateExam: (examId, data) => apiService.patch(`/admin/exams/${examId}/`, data),
+  deleteExam: (examId) => apiService.delete(`/admin/exams/${examId}/`),
+
+  // Student exam registrations
+  getRegistrations: () => apiService.get('/admin/registrations/'),
+  approveRegistration: (registrationId) =>
+    apiService.patch(`/admin/registrations/${registrationId}/`, { is_approved: true }),
+
+  // Hall tickets
+  getHallTickets: () => apiService.get('/admin/halltickets/'),
+  createHallTicket: (data) => apiService.post('/admin/halltickets/', data),
+  deleteHallTicket: (hallTicketId) =>
+    apiService.delete(`/admin/halltickets/${hallTicketId}/`),
+
+  // Marksheets
+  getMarksheets: () => apiService.get('/admin/marksheets/'),
+  createMarksheet: (data) => apiService.post('/admin/marksheets/', data),
+  updateMarksheet: (marksheetId, data) =>
+    apiService.patch(`/admin/marksheets/${marksheetId}/`, data),
+  deleteMarksheet: (marksheetId) =>
+    apiService.delete(`/admin/marksheets/${marksheetId}/`),
+};
+
 export default apiService;

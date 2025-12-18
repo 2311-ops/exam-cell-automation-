@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'halltickets.apps.HallTicketsConfig',
     'marksheets.apps.MarksheetsConfig',
     'students.apps.StudentsConfig',
+    'adminpanel.apps.AdminpanelConfig',
 
     'django.contrib.admin',
     'django.contrib.auth',

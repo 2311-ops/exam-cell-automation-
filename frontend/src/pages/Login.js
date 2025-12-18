@@ -47,10 +47,30 @@ function Login() {
       // Store tokens
       localStorage.setItem('access_token', response.data.access);
       localStorage.setItem('refresh_token', response.data.refresh);
-      localStorage.setItem('username', formData.username);
 
-      // Redirect to dashboard
-      navigate('/dashboard');
+      // Store basic user info for role-based routing
+      const user = response.data.user;
+      if (user) {
+        localStorage.setItem('username', user.username || formData.username);
+        if (user.role) {
+          localStorage.setItem('user_role', user.role);
+        }
+        localStorage.setItem('is_staff', String(user.is_staff));
+        localStorage.setItem('is_superuser', String(user.is_superuser));
+      } else {
+        localStorage.setItem('username', formData.username);
+      }
+
+      // Redirect based on role / staff status
+      const isAdmin =
+        user &&
+        (user.role === 'admin' || user.is_staff === true || user.is_superuser === true);
+
+      if (isAdmin) {
+        navigate('/admin');
+      } else {
+        navigate('/dashboard');
+      }
     } catch (err) {
       setError(err.response?.data?.detail || 'Login failed. Please try again.');
     } finally {
