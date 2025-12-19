@@ -112,6 +112,6 @@ class EmailStudentsView(APIView):
         )
 
         return Response(
-            {"detail": f"Email sent to {sent_count} students."},
+            {"detail": f"Email sent to all students."},
             status=status.HTTP_200_OK,
         )
