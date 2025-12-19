@@ -13,6 +13,9 @@ function AdminDashboard() {
   const [marksheets, setMarksheets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [emailSubject, setEmailSubject] = useState('');
+  const [emailMessage, setEmailMessage] = useState('');
+  const [emailStatus, setEmailStatus] = useState('');
 
   const [newExam, setNewExam] = useState({
     name: '',
@@ -77,6 +80,28 @@ function AdminDashboard() {
     localStorage.removeItem('is_staff');
     localStorage.removeItem('is_superuser');
     navigate('/');
+  };
+
+  const handleSendEmail = async (e) => {
+    e.preventDefault();
+    setEmailStatus('');
+
+    if (!emailSubject.trim() || !emailMessage.trim()) {
+      setEmailStatus('Subject and message are required.');
+      return;
+    }
+
+    try {
+      const res = await adminAPI.emailStudents(emailSubject.trim(), emailMessage.trim());
+      setEmailStatus(res.data?.detail || 'Email sent successfully.');
+      setEmailSubject('');
+      setEmailMessage('');
+    } catch (err) {
+      console.error('Failed to send email to students', err);
+      setEmailStatus(
+        err.response?.data?.detail || 'Failed to send email to students.'
+      );
+    }
   };
 
   const handleApproveRegistration = async (registrationId) => {
@@ -190,6 +215,12 @@ function AdminDashboard() {
           onClick={() => setActiveTab('marksheets')}
         >
           Marksheets
+        </button>
+        <button
+          className={`tab-btn ${activeTab === 'email' ? 'active' : ''}`}
+          onClick={() => setActiveTab('email')}
+        >
+          Email Students
         </button>
       </div>
 
@@ -468,6 +499,50 @@ function AdminDashboard() {
             )}
           </div>
         )}
+
+        {activeTab === 'email' && (
+          <div className="tab-content">
+            <h2>📧 Email All Registered Students</h2>
+            <div className="profile-card">
+              {emailStatus && (
+                <div
+                  className={
+                    emailStatus.toLowerCase().includes('failed')
+                      ? 'alert alert-error'
+                      : 'alert alert-success'
+                  }
+                >
+                  {emailStatus}
+                </div>
+              )}
+              <form onSubmit={handleSendEmail}>
+                <div className="profile-item">
+                  <span className="label">Subject</span>
+                  <input
+                    type="text"
+                    value={emailSubject}
+                    onChange={(e) => setEmailSubject(e.target.value)}
+                    placeholder="Enter email subject"
+                  />
+                </div>
+                <div className="profile-item" style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
+                  <span className="label" style={{ marginBottom: '8px' }}>Message</span>
+                  <textarea
+                    value={emailMessage}
+                    onChange={(e) => setEmailMessage(e.target.value)}
+                    placeholder="Enter email body to send to all students"
+                    rows={6}
+                    style={{ width: '100%' }}
+                  />
+                </div>
+                <button type="submit" className="btn btn-primary">
+                  Emai sent to Students
+                </button>
+              </form>
+            </div>
+          </div>
+        )}
+
       </div>
     </div>
   );

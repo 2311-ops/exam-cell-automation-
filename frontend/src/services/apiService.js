@@ -91,6 +91,10 @@ export const adminAPI = {
     apiService.patch(`/admin/marksheets/${marksheetId}/`, data),
   deleteMarksheet: (marksheetId) =>
     apiService.delete(`/admin/marksheets/${marksheetId}/`),
+
+  // Email all registered students
+  emailStudents: (subject, message) =>
+    apiService.post('/admin/email/students/', { subject, message }),
 };
 
 export default apiService;

@@ -6,7 +6,9 @@ import Login from './pages/Login.js';
 import Dashboard from './pages/Dashboard.js';
 import AdminDashboard from './pages/AdminDashboard.js';
 import './App.css';
+import AdminRedirect from './pages/AdminRedirect.js';
 
+<Route path="/Adminpage" element={<AdminRedirect />} />
 // Protected Route Component with optional admin check
 function ProtectedRoute({ children, requireAdmin = false }) {
   const token = localStorage.getItem('access_token');
@@ -51,7 +53,9 @@ function App() {
               <AdminDashboard />
             </ProtectedRoute>
           }
+          
         />
+        <Route path="/Adminpage" element={<AdminRedirect />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>
