@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Student Inquiry</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px 10px 0 0;
+            text-align: center;
+        }
+        .content {
+            background: #f9f9f9;
+            padding: 30px;
+            border-radius: 0 0 10px 10px;
+            border: 1px solid #ddd;
+            border-top: none;
+        }
+        .student-info {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+        }
+        .message {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            border: 1px solid #eee;
+            white-space: pre-wrap;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>📧 Student Inquiry</h2>
+        <p>New message from Exam Cell Automation</p>
+    </div>
+
+    <div class="content">
+        <div class="student-info">
+            <h3>Student Details:</h3>
+            <p><strong>Username:</strong> {{ student_username }}</p>
+            <p><strong>Email:</strong> {{ student_email }}</p>
+            <p><strong>Subject:</strong> {{ subject }}</p>
+        </div>
+
+        <div class="message">
+            <h3>Message:</h3>
+            {{ message }}
+        </div>
+
+        <div class="footer">
+            <p>This email was sent from the Exam Cell Automation system.</p>
+            <p>You can reply directly to the student's email address above.</p>
+        </div>
+    </div>
+</body>
+</html>

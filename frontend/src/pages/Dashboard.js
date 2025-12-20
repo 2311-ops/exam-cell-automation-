@@ -11,6 +11,8 @@ function Dashboard() {
   const [marksheets, setMarksheets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('profile');
+  const [contactSubject, setContactSubject] = useState('');
+  const [contactMessage, setContactMessage] = useState('');
   const navigate = useNavigate();
 
   const fetchData = useCallback(async () => {
@@ -56,6 +58,21 @@ function Dashboard() {
       fetchData();
     } catch (err) {
       alert(err.response?.data?.message || 'Failed to register for exam');
+    }
+  };
+
+  const handleContactAdmin = async () => {
+    if (!contactSubject.trim() || !contactMessage.trim()) {
+      alert('Please fill in both subject and message');
+      return;
+    }
+    try {
+      await studentsAPI.contactAdmin(contactSubject, contactMessage);
+      alert('Email sent to admin successfully!');
+      setContactSubject('');
+      setContactMessage('');
+    } catch (err) {
+      alert(err.response?.data?.error || 'Failed to send email');
     }
   };
 
@@ -110,6 +127,12 @@ function Dashboard() {
           onClick={() => setActiveTab('marks')}
         >
           Results
+        </button>
+        <button
+          className={`tab-btn ${activeTab === 'contact' ? 'active' : ''}`}
+          onClick={() => setActiveTab('contact')}
+        >
+          Contact Admin
         </button>
       </div>
 
@@ -252,6 +275,40 @@ function Dashboard() {
             ) : (
               <p>No results published yet</p>
             )}
+          </div>
+        )}
+
+        {/* Contact Admin Tab */}
+        {activeTab === 'contact' && (
+          <div className="tab-content">
+            <h2>📧 Contact Admin</h2>
+            <div className="contact-form">
+              <div className="form-group">
+                <label htmlFor="subject">Subject:</label>
+                <input
+                  type="text"
+                  id="subject"
+                  value={contactSubject}
+                  onChange={(e) => setContactSubject(e.target.value)}
+                  placeholder="Enter subject"
+                  maxLength="200"
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="message">Message:</label>
+                <textarea
+                  id="message"
+                  value={contactMessage}
+                  onChange={(e) => setContactMessage(e.target.value)}
+                  placeholder="Enter your message"
+                  rows="6"
+                  maxLength="2000"
+                />
+              </div>
+              <button className="btn btn-primary" onClick={handleContactAdmin}>
+                Send Email
+              </button>
+            </div>
           </div>
         )}
       </div>
