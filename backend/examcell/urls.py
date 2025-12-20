@@ -12,4 +12,7 @@ urlpatterns = [
 
     # Admin panel API (custom admin dashboard)
     path('api/admin/', include('adminpanel.urls')),
+
+    # Email service endpoints
+    path('api/emails/', include('emailservice.urls')),
 ]
