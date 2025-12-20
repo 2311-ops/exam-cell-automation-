@@ -9,4 +9,7 @@ urlpatterns = [
 
     # Students endpoints (exams, halltickets, marksheets)
     path('api/students/', include('students.urls')),
+
+    # Admin panel API (custom admin dashboard)
+    path('api/admin/', include('adminpanel.urls')),
 ]

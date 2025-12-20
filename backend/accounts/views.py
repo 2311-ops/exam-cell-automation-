@@ -72,6 +72,7 @@ class LoginView(APIView):
             'message': 'Login successful',
             'access': str(access),
             'refresh': str(refresh),
+            'user': UserSerializer(user).data,
         }, status=status.HTTP_200_OK)
 
 

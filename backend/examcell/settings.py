@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'halltickets.apps.HallTicketsConfig',
     'marksheets.apps.MarksheetsConfig',
     'students.apps.StudentsConfig',
+    'adminpanel.apps.AdminpanelConfig',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -59,12 +60,10 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'http://127.0.0.1:3000',
-]
-
-# Add frontend dev ports (3000 and 3001)
-CORS_ALLOWED_ORIGINS += [
-    'http://localhost:3001',
-    'http://127.0.0.1:3001',
+    'http://localhost:3001',  # Sometimes React runs on 3001
+    'http://127.0.0.1:3001',  # Sometimes React runs on 3001
+    'http://localhost:3002',  # Your current port
+    'http://127.0.0.1:3002',  # Your current port2
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -78,7 +77,12 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
-    ]
+    ],
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.JSONParser',
+        'rest_framework.parsers.FormParser',
+        'rest_framework.parsers.MultiPartParser',
+    ],
 }
 
 # -------------------------

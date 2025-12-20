@@ -7,7 +7,11 @@ User = get_user_model()
 # Serializer for user registration
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=True)
-    role = serializers.ChoiceField(choices=[('student', 'Student'), ('staff', 'Staff')], default='student')
+    # Align role choices with the custom User model (student/admin)
+    role = serializers.ChoiceField(
+        choices=[('student', 'Student'), ('admin', 'Admin')],
+        default='student'
+    )
 
     class Meta:
         model = User
@@ -79,4 +83,4 @@ class LoginSerializer(serializers.Serializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'role']
+        fields = ['id', 'username', 'email', 'role', 'is_staff', 'is_superuser']

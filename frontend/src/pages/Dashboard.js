@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { authAPI, studentsAPI } from '../services/apiService';
+import { authAPI, studentsAPI } from '../services/apiService.js';
 import '../styles/Dashboard.css';
 
 function Dashboard() {
@@ -13,11 +13,7 @@ function Dashboard() {
   const [activeTab, setActiveTab] = useState('profile');
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       // Fetch user data
       const userRes = await authAPI.getMe();
@@ -47,7 +43,11 @@ function Dashboard() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [navigate]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   const handleRegisterExam = async (exam_id) => {
     try {
@@ -259,4 +259,8 @@ function Dashboard() {
   );
 }
 
+<<<<<<< HEAD
 export default Dashboard;
+=======
+export default Dashboard;
+>>>>>>> e27e2f45a9477f1bfed7c995b9984844c8d57dce

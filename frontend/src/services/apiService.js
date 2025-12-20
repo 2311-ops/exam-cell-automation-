@@ -13,6 +13,7 @@ const apiService = axios.create({
 apiService.interceptors.request.use((config) => {
   const token = localStorage.getItem('access_token');
 <<<<<<< HEAD
+<<<<<<< HEAD
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -20,6 +21,8 @@ apiService.interceptors.request.use((config) => {
 });
 
 =======
+=======
+>>>>>>> e27e2f45a9477f1bfed7c995b9984844c8d57dce
 
   // Don't attach token for login/register
   if (
@@ -35,7 +38,10 @@ apiService.interceptors.request.use((config) => {
 });
 
 
+<<<<<<< HEAD
 >>>>>>> b93a8b449bb198c041389dc301d09512a056b035
+=======
+>>>>>>> e27e2f45a9477f1bfed7c995b9984844c8d57dce
 export const authAPI = {
   register: (username, email, password, role = 'student') =>
     apiService.post('/accounts/register/', { username, email, password, role }),
@@ -71,7 +77,47 @@ export const studentsAPI = {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 export default apiService;
 =======
 export default apiService;
 >>>>>>> b93a8b449bb198c041389dc301d09512a056b035
+=======
+// Admin-specific APIs that mirror Django admin capabilities
+export const adminAPI = {
+  // Users
+  getUsers: () => apiService.get('/admin/users/'),
+  updateUser: (userId, data) => apiService.patch(`/admin/users/${userId}/`, data),
+
+  // Exams
+  getExams: () => apiService.get('/admin/exams/'),
+  createExam: (data) => apiService.post('/admin/exams/', data),
+  updateExam: (examId, data) => apiService.patch(`/admin/exams/${examId}/`, data),
+  deleteExam: (examId) => apiService.delete(`/admin/exams/${examId}/`),
+
+  // Student exam registrations
+  getRegistrations: () => apiService.get('/admin/registrations/'),
+  approveRegistration: (registrationId) =>
+    apiService.patch(`/admin/registrations/${registrationId}/`, { is_approved: true }),
+
+  // Hall tickets
+  getHallTickets: () => apiService.get('/admin/halltickets/'),
+  createHallTicket: (data) => apiService.post('/admin/halltickets/', data),
+  deleteHallTicket: (hallTicketId) =>
+    apiService.delete(`/admin/halltickets/${hallTicketId}/`),
+
+  // Marksheets
+  getMarksheets: () => apiService.get('/admin/marksheets/'),
+  createMarksheet: (data) => apiService.post('/admin/marksheets/', data),
+  updateMarksheet: (marksheetId, data) =>
+    apiService.patch(`/admin/marksheets/${marksheetId}/`, data),
+  deleteMarksheet: (marksheetId) =>
+    apiService.delete(`/admin/marksheets/${marksheetId}/`),
+
+  // Email all registered students
+  emailStudents: (subject, message) =>
+    apiService.post('/admin/email/students/', { subject, message }),
+};
+
+export default apiService;
+>>>>>>> e27e2f45a9477f1bfed7c995b9984844c8d57dce

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { authAPI } from '../services/apiService';
+import { authAPI } from '../services/apiService.js';
 import '../styles/Auth.css';
 
 function Register() {
@@ -48,7 +48,7 @@ function Register() {
     }
 
     try {
-      const response = await authAPI.register(
+      await authAPI.register(
         formData.username,
         formData.email,
         formData.password
