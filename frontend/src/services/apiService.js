@@ -38,10 +38,6 @@ apiService.interceptors.request.use((config) => {
 });
 
 
-<<<<<<< HEAD
->>>>>>> b93a8b449bb198c041389dc301d09512a056b035
-=======
->>>>>>> e27e2f45a9477f1bfed7c995b9984844c8d57dce
 export const authAPI = {
   register: (username, email, password, role = 'student') =>
     apiService.post('/accounts/register/', { username, email, password, role }),
