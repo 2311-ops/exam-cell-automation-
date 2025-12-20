@@ -12,6 +12,17 @@ const apiService = axios.create({
 // Add token to requests if it exists
 apiService.interceptors.request.use((config) => {
   const token = localStorage.getItem('access_token');
+<<<<<<< HEAD
+<<<<<<< HEAD
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+=======
+=======
+>>>>>>> e27e2f45a9477f1bfed7c995b9984844c8d57dce
 
   // Don't attach token for login/register
   if (
@@ -64,6 +75,13 @@ export const studentsAPI = {
     apiService.post('/emails/contact-admin/', { subject, message }),
 };
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+export default apiService;
+=======
+export default apiService;
+>>>>>>> b93a8b449bb198c041389dc301d09512a056b035
+=======
 // Admin-specific APIs that mirror Django admin capabilities
 export const adminAPI = {
   // Users
@@ -101,3 +119,4 @@ export const adminAPI = {
 };
 
 export default apiService;
+>>>>>>> e27e2f45a9477f1bfed7c995b9984844c8d57dce
