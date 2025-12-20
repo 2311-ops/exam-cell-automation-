@@ -11,6 +11,8 @@ function Dashboard() {
   const [marksheets, setMarksheets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('profile');
+  const [contactForm, setContactForm] = useState({ subject: '', message: '' });
+  const [sendingEmail, setSendingEmail] = useState(false);
   const navigate = useNavigate();
 
   const fetchData = useCallback(async () => {
@@ -66,6 +68,25 @@ function Dashboard() {
     navigate('/');
   };
 
+  const handleContactAdmin = async (e) => {
+    e.preventDefault();
+    if (!contactForm.subject.trim() || !contactForm.message.trim()) {
+      alert('Please fill in both subject and message');
+      return;
+    }
+
+    setSendingEmail(true);
+    try {
+      await studentsAPI.contactAdmin(contactForm.subject, contactForm.message);
+      alert('Email sent to admin successfully!');
+      setContactForm({ subject: '', message: '' });
+    } catch (err) {
+      alert(err.response?.data?.error || 'Failed to send email. Please try again.');
+    } finally {
+      setSendingEmail(false);
+    }
+  };
+
   if (loading) {
     return <div className="dashboard-container"><div className="loading">Loading...</div></div>;
   }
@@ -73,9 +94,15 @@ function Dashboard() {
   return (
     <div className="dashboard-container">
       <header className="dashboard-header">
-        <h1>📊 Student Dashboard</h1>
+        <h1>
+          <span className="dashboard-icon">📊</span>
+          <span className="dashboard-title">Student Dashboard</span>
+        </h1>
         <div className="header-actions">
-          <span className="username">👤 {userData?.username}</span>
+          <span className="username">
+            <span className="user-icon">👤</span>
+            {userData?.username}
+          </span>
           <button className="btn btn-logout" onClick={handleLogout}>Logout</button>
         </div>
       </header>
@@ -110,6 +137,18 @@ function Dashboard() {
           onClick={() => setActiveTab('marks')}
         >
           Results
+        </button>
+        <button
+          className={`tab-btn ${activeTab === 'contact' ? 'active' : ''}`}
+          onClick={() => setActiveTab('contact')}
+        >
+          Contact Admin
+        </button>
+        <button
+          className={`tab-btn ${activeTab === 'contact' ? 'active' : ''}`}
+          onClick={() => setActiveTab('contact')}
+        >
+          Contact Admin
         </button>
       </div>
 
@@ -252,6 +291,49 @@ function Dashboard() {
             ) : (
               <p>No results published yet</p>
             )}
+          </div>
+        )}
+
+        {/* Contact Admin Tab */}
+        {activeTab === 'contact' && (
+          <div className="tab-content">
+            <h2>📧 Contact Admin</h2>
+            <div className="contact-card">
+              <p>Send a message to the administrator. Your email address will be included automatically.</p>
+              <form onSubmit={handleContactAdmin} className="contact-form">
+                <div className="form-group">
+                  <label htmlFor="subject">Subject:</label>
+                  <input
+                    type="text"
+                    id="subject"
+                    value={contactForm.subject}
+                    onChange={(e) => setContactForm({...contactForm, subject: e.target.value})}
+                    placeholder="Enter subject..."
+                    maxLength="200"
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="message">Message:</label>
+                  <textarea
+                    id="message"
+                    value={contactForm.message}
+                    onChange={(e) => setContactForm({...contactForm, message: e.target.value})}
+                    placeholder="Enter your message..."
+                    rows="6"
+                    maxLength="2000"
+                    required
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="btn btn-primary"
+                  disabled={sendingEmail}
+                >
+                  {sendingEmail ? 'Sending...' : 'Send Email'}
+                </button>
+              </form>
+            </div>
           </div>
         )}
       </div>

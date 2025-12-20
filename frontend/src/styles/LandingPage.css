@@ -1,10 +1,10 @@
-/* Landing Page Styles - Modern Dark Theme */
+/* Landing Page Styles - Modern Light Theme */
 .landing-container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f1f5f9 100%);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   position: relative;
   overflow: hidden;
@@ -17,8 +17,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(circle at 20% 80%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
-              radial-gradient(circle at 80% 20%, rgba(255, 0, 128, 0.1) 0%, transparent 50%);
+  background: radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+              radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
   animation: backgroundFloat 20s ease-in-out infinite;
 }
 
@@ -30,7 +30,7 @@
 
 .landing-content {
   text-align: center;
-  color: white;
+  color: #1e293b;
   max-width: 700px;
   padding: 50px;
   z-index: 1;
@@ -41,13 +41,36 @@
   font-size: 4em;
   margin-bottom: 20px;
   font-weight: 800;
-  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-  background: linear-gradient(45deg, #00d4ff, #ff0080, #00d4ff);
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(45deg, #3b82f6, #8b5cf6, #3b82f6);
   background-size: 200% 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   animation: gradientShift 3s ease-in-out infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.logo-icon {
+  font-size: 1.2em;
+  filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));
+  animation: float 3s ease-in-out infinite;
+}
+
+.logo-text {
+  background: linear-gradient(45deg, #1e293b, #374151);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
 }
 
 @keyframes gradientShift {
@@ -61,7 +84,8 @@
   opacity: 0.9;
   font-weight: 400;
   line-height: 1.6;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: #64748b;
 }
 
 .button-group {
@@ -101,29 +125,29 @@
 }
 
 .btn-primary {
-  background: linear-gradient(45deg, #00d4ff, #ff0080);
+  background: linear-gradient(45deg, #3b82f6, #8b5cf6);
   color: white;
-  box-shadow: 0 8px 25px rgba(0, 212, 255, 0.3);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
 }
 
 .btn-primary:hover {
-  background: linear-gradient(45deg, #ff0080, #00d4ff);
+  background: linear-gradient(45deg, #8b5cf6, #3b82f6);
   transform: translateY(-5px) scale(1.05);
-  box-shadow: 0 15px 40px rgba(0, 212, 255, 0.5);
+  box-shadow: 0 15px 40px rgba(59, 130, 246, 0.5);
 }
 
 .btn-secondary {
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.9);
+  color: #3b82f6;
+  border: 2px solid rgba(59, 130, 246, 0.3);
   backdrop-filter: blur(10px);
 }
 
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(59, 130, 246, 0.5);
   transform: translateY(-5px) scale(1.05);
-  box-shadow: 0 15px 40px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 15px 40px rgba(59, 130, 246, 0.2);
 }
 
 .features {
@@ -134,14 +158,15 @@
 }
 
 .feature {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.9);
   padding: 40px 30px;
   border-radius: 25px;
   backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   transition: all 0.4s ease;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .feature::before {
@@ -151,7 +176,7 @@
   left: -50%;
   width: 200%;
   height: 200%;
-  background: conic-gradient(from 0deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+  background: conic-gradient(from 0deg, transparent, rgba(59, 130, 246, 0.1), transparent);
   animation: rotate 10s linear infinite;
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -163,8 +188,8 @@
 
 .feature:hover {
   transform: translateY(-10px) scale(1.03);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  border-color: rgba(59, 130, 246, 0.3);
 }
 
 @keyframes rotate {
@@ -176,12 +201,12 @@
   margin-bottom: 15px;
   font-size: 1.4em;
   font-weight: 700;
-  color: white;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  color: #1e293b;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .feature p {
-  color: rgba(255, 255, 255, 0.8);
+  color: #64748b;
   font-size: 1.1em;
   line-height: 1.6;
 }

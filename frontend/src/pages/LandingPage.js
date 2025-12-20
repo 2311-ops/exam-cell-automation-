@@ -9,9 +9,12 @@ function LandingPage() {
   return (
     <div className="landing-container">
       <div className="landing-content">
-        <h1>📚 Exam Cell Automation</h1>
+        <h1>
+          <span className="logo-icon">📚</span>
+          <span className="logo-text">Exam Cell Automation</span>
+        </h1>
         <p>Manage your exams, hall tickets, and results in one place</p>
-        
+
         <div className="button-group">
           <button
             className="btn btn-primary"

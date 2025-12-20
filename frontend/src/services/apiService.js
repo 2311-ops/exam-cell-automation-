@@ -59,6 +59,9 @@ export const studentsAPI = {
   
   getMarksheet: (exam_id) =>
     apiService.get(`/students/marksheet/${exam_id}/`),
+
+  contactAdmin: (subject, message) =>
+    apiService.post('/emails/contact-admin/', { subject, message }),
 };
 
 // Admin-specific APIs that mirror Django admin capabilities
