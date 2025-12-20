@@ -102,7 +102,3 @@ npm start
 This project is developed for academic purposes.
 
 ---
-
-### Pro-Tip for your Team:
-
-To make this GitHub-ready, ensure you have a `requirements.txt` file in your `backend/` folder.
