@@ -2,7 +2,7 @@ Project Name: Exam Cell Automation System
 Date: 12/3/2025
 Sprint: Sprint 1
 Meeting Type: Daily Scrum
-Duration: 30 minutes
+Duration:  3 hours
 Attendees:
 Youssef Hassan
 Seif Sherif
@@ -16,7 +16,7 @@ ________________________________________
 Date: 12/16/2025
 Sprint: Sprint 2
 Meeting Type: Daily Scrum
-Duration: 30 minutes
+Duration: 2 hours
 Attendees:
 Youssef Hassan
 Seif Sherif
@@ -29,7 +29,7 @@ ________________________________________
 Date: 12/20/2025
 Sprint: Sprint 3
 Meeting Type: Daily Scrum
-Duration: 30 minutes
+Duration: 4 hours
 Attendees:
 Youssef Hassan
 Seif Sherif
@@ -42,7 +42,7 @@ ________________________________________
 Date: 12/22/2025
 Sprint: Sprint 4
 Meeting Type: Daily Scrum
-Duration: 30 minutes
+Duration: 5 hours
 Attendees:
 Youssef Hassan
 Seif Sherif
@@ -52,4 +52,5 @@ What was done:
 •	Testing the full Exam Cell Automation System.
 •	Added admin email functionality to communicate with students.
 •	Fixed frontend-backend integration issues and prepared for final delivery.
+
 
