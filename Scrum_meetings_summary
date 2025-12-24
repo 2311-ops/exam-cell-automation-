@@ -1,57 +1,55 @@
-Project Name: Software Project
+Project Name: Exam Cell Automation System
 Date: 12/3/2025
 Sprint: Sprint 1
 Meeting Type: Daily Scrum
 Duration: 30 minutes
-
 Attendees:
-Youssef Ghallab
-Khaled Yahia
-
+Youssef Hassan
+Seif Sherif
+Omar Hany
+Mario Sameh
 What was done:
--The team reviewed the project requirements and repository structure.
--Initial project files and folders were organized.
--Work started on the login page layout , attendance page and the backend for both.
-
-___________________________________________________________________________________________
-
+•	The team reviewed the project requirements and repository structure.
+•	Initial project files and folders were organized.
+•	Work started on the student registration page, login page, hall ticket module, and backend setup for accounts and email services.
+________________________________________
 Date: 12/16/2025
 Sprint: Sprint 2
 Meeting Type: Daily Scrum
 Duration: 30 minutes
-
 Attendees:
-Youssef Ghallab
-Khaled Yahia
-
+Youssef Hassan
+Seif Sherif
+Omar Hany
+Mario Sameh
 What was done:
--New repository made with organized branches and folders.
--Finished working on login page , attendance page and most of the backend.
-
-___________________________________________________________________________________________
-
+•	New repository made with organized branches and folders.
+•	Finished working on login page, student dashboard, attendance/exam registration page, and most of the backend functionality.
+________________________________________
 Date: 12/20/2025
 Sprint: Sprint 3
 Meeting Type: Daily Scrum
 Duration: 30 minutes
-
 Attendees:
-Youssef Ghallab
-Khaled Yahia
-
+Youssef Hassan
+Seif Sherif
+Omar Hany
+Mario Sameh
 What was done:
--Added test files and mysql files in the database folder.
-
-___________________________________________________________________________________________
-
+•	Added email service testing files and SQLite database setup.
+•	Implemented hall ticket generation and marksheet publishing modules.
+________________________________________
 Date: 12/22/2025
 Sprint: Sprint 4
 Meeting Type: Daily Scrum
 Duration: 30 minutes
-
 Attendees:
-Youssef Ghallab
-Khaled Yahia
-
+Youssef Hassan
+Seif Sherif
+Omar Hany
+Mario Sameh
 What was done:
--Testing and deployment.
+•	Testing the full Exam Cell Automation System.
+•	Added admin email functionality to communicate with students.
+•	Fixed frontend-backend integration issues and prepared for final delivery.
+
